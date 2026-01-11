@@ -4,27 +4,27 @@ Modern Julia 1.12+ package generator with production-ready architecture designed
 
 ## Overview
 
-QuickTemplates emerged from real-world needs: managing multiple scientific projects that required consistent patterns (Result types, DrWatson integration, tolerance testing) but found existing generators either too basic or required constant patching for ML/DS workflows. Rather than fragmenting with yet another template, we built a **learning-friendly, architecturally transparent** generator that newcomers to Julia can understand, modify, and learn from.
+QuickTemplates emerged from real-world needs in data science: managing multiple ML/research projects that required consistent patterns (Result types for error handling, DrWatson project structures, tolerance testing for numerical work) but found existing generators either too basic or required constant patching. Rather than fragmenting the ecosystem, this serves as a **learning-friendly, architecturally transparent** generator that data scientists new to Julia can understand, modify, and learn from while establishing ML/DS workflow best practices.
 
 ## Why QuickTemplates?
 
-### For Julia Newcomers
+### For Data Scientists New to Julia
 
-- **Pure Julia stack**: No Python dependencies (copier), no complex plugin systems
-- **Readable architecture**: Clear separation of concerns (see [ARCHITECTURE.md](docs/ARCHITECTURE.md))
-- **Learning resource**: Well-documented patterns (guard clauses, railway-oriented programming, multiple dispatch)
-- **AI-assisted review**: Code reviewed by AI to catch common pitfalls from other language backgrounds
-- **Incremental complexity**: Start simple, add features as needed
+- **Pure Julia stack**: No Python dependencies (Copier), no complex plugin systems - easier mental model for Python/R users
+- **Readable architecture**: Clear separation of concerns, well-documented design patterns
+- **Learning resource**: Implements guard clauses, railway-oriented programming, multiple dispatch - core Julia idioms
+- **AI-assisted review**: Architecture designed by human, code reviewed by AI to catch anti-patterns from other languages
+- **Incremental complexity**: Start with basics, add ML/DS features as needed
 
-### For Scientific Computing
+### For ML/Data Science Workflows
 
-**Native integrations** (not plugins or external dependencies):
+**Native integrations** (built-in, not plugins):
 
-- **DrWatson.jl**: Full project structure (scripts/, data/, plots/, papers/)
-- **Result types**: Railway-oriented programming for error handling
-- **Tolerance testing**: Float comparison helpers (rtol, atol patterns)
-- **Notebooks**: Jupyter + VSCode settings optimized for Julia kernels
-- **Dev workspace**: Separate environment for BenchmarkTools, Revise, OhMyREPL
+- **DrWatson.jl**: Complete research project structure (scripts/, data/, plots/, papers/)
+- **Result types**: Functional error handling (railway-oriented programming) - cleaner than try-catch chains
+- **Tolerance testing**: Numerical comparison helpers (rtol, atol patterns) for ML model validation
+- **Notebooks**: Jupyter + VSCode settings optimized for interactive Julia development
+- **Dev workspace**: Isolated environment for benchmarking and development tools
 
 ### Architectural Advantages
 
@@ -206,14 +206,14 @@ end
 
 ## Development Philosophy
 
-This package emerged from practical needs but acknowledges it may not be the best fit for the broader community. The maintainer is:
+This package emerged from practical data science needs but acknowledges it serves a specific niche. The maintainer is:
 
-- **Learning Julia**: Not yet experienced enough to confidently contribute to PkgTemplates/BestieTemplate
-- **Open to collaboration**: Interested in contributing features upstream if they add value
-- **Transparent about AI use**: Architecture designed by human, code reviewed by AI to catch newcomer mistakes
-- **Focused on education**: Documentation emphasizes "why" over "what"
+- **Data scientist learning Julia**: Coming from Python/R backgrounds, learning Julia ecosystem best practices
+- **Open to ecosystem collaboration**: Interested in contributing patterns upstream if they add value to existing tools
+- **Transparent about AI use**: Architecture designed by human, code reviewed by AI to catch anti-patterns from other languages
+- **Focused on ML/DS practitioners**: Documentation targets data scientists transitioning to Julia
 
-If features here (Result types, DrWatson patterns, security validations) would benefit PkgTemplates or BestieTemplate, the maintainer is happy to extract and contribute them upstream.
+If features here (Result types for pipelines, DrWatson workflow integration, tolerance testing patterns) would benefit PkgTemplates or BestieTemplate, the maintainer is happy to extract and contribute them as plugins or enhancements.
 
 ## Testing
 

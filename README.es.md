@@ -4,27 +4,27 @@ Generador moderno de paquetes Julia 1.12+ con arquitectura production-ready dise
 
 ## Descripción General
 
-QuickTemplates surgió de necesidades reales: gestionar múltiples proyectos científicos que requerían patrones consistentes (tipos Result, integración DrWatson, testing de tolerancias) pero encontraban que los generadores existentes eran demasiado básicos o requerían parches constantes para flujos ML/DS. En lugar de fragmentar con otra plantilla más, construimos un generador **amigable para principiantes, arquitectónicamente transparente** que los recién llegados a Julia pueden entender, modificar y aprender.
+QuickTemplates surgió de necesidades reales en ciencia de datos: gestionar múltiples proyectos ML/investigación que requerían patrones consistentes (tipos Result para manejo de errores, estructuras de proyecto DrWatson, testing de tolerancias para trabajo numérico) pero encontraban que los generadores existentes eran demasiado básicos o requerían parches constantes. En lugar de fragmentar el ecosistema, esto sirve como generador **amigable para aprendizaje, arquitectónicamente transparente** que científicos de datos nuevos en Julia pueden entender, modificar y aprender mientras establecen mejores prácticas para flujos ML/DS.
 
 ## ¿Por Qué QuickTemplates?
 
-### Para Principiantes en Julia
+### Para Científicos de Datos Nuevos en Julia
 
-- **Stack puro Julia**: Sin dependencias Python (copier), sin sistemas complejos de plugins
-- **Arquitectura legible**: Clara separación de responsabilidades (ver [ARCHITECTURE.md](docs/ARCHITECTURE.md))
-- **Recurso de aprendizaje**: Patrones bien documentados (guard clauses, railway-oriented programming, multiple dispatch)
-- **Revisión asistida por IA**: Código revisado por IA para detectar errores comunes de otros lenguajes
-- **Complejidad incremental**: Empieza simple, agrega features según necesites
+- **Stack puro Julia**: Sin dependencias Python (Copier), sin sistemas complejos de plugins - modelo mental más simple para usuarios Python/R
+- **Arquitectura legible**: Clara separación de responsabilidades, patrones de diseño bien documentados
+- **Recurso de aprendizaje**: Implementa guard clauses, railway-oriented programming, multiple dispatch - idiomas core de Julia
+- **Revisión asistida por IA**: Arquitectura diseñada por humano, código revisado por IA para detectar anti-patrones de otros lenguajes
+- **Complejidad incremental**: Empieza con básicos, agrega features ML/DS según necesites
 
-### Para Computación Científica
+### Para Flujos de Trabajo ML/Ciencia de Datos
 
-**Integraciones nativas** (no plugins ni dependencias externas):
+**Integraciones nativas** (incorporadas, no plugins):
 
-- **DrWatson.jl**: Estructura completa de proyecto (scripts/, data/, plots/, papers/)
-- **Result types**: Railway-oriented programming para manejo de errores
-- **Tolerance testing**: Helpers de comparación de floats (patrones rtol, atol)
-- **Notebooks**: Jupyter + configuración VSCode optimizada para kernels Julia
-- **Dev workspace**: Ambiente separado para BenchmarkTools, Revise, OhMyREPL
+- **DrWatson.jl**: Estructura completa de proyecto investigación (scripts/, data/, plots/, papers/)
+- **Result types**: Manejo funcional de errores (railway-oriented programming) - más limpio que cadenas try-catch
+- **Tolerance testing**: Helpers de comparación numérica (patrones rtol, atol) para validación de modelos ML
+- **Notebooks**: Jupyter + configuración VSCode optimizada para desarrollo interactivo Julia
+- **Dev workspace**: Ambiente aislado para herramientas de benchmarking y desarrollo
 
 ### Ventajas Arquitectónicas
 
@@ -206,14 +206,14 @@ end
 
 ## Filosofía de Desarrollo
 
-Este paquete surgió de necesidades prácticas pero reconoce que puede no ser el mejor ajuste para la comunidad general. El mantenedor:
+Este paquete surgió de necesidades prácticas de ciencia de datos pero reconoce que sirve a un nicho específico. El mantenedor:
 
-- **Aprendiendo Julia**: Aún no suficientemente experimentado para contribuir con confianza a PkgTemplates/BestieTemplate
-- **Abierto a colaboración**: Interesado en contribuir features upstream si agregan valor
-- **Transparente sobre uso de IA**: Arquitectura diseñada por humano, código revisado por IA para detectar errores de principiante
-- **Enfocado en educación**: Documentación enfatiza "por qué" sobre "qué"
+- **Científico de datos aprendiendo Julia**: Viniendo de backgrounds Python/R, aprendiendo mejores prácticas del ecosistema Julia
+- **Abierto a colaboración en el ecosistema**: Interesado en contribuir patrones upstream si agregan valor a herramientas existentes
+- **Transparente sobre uso de IA**: Arquitectura diseñada por humano, código revisado por IA para detectar anti-patrones de otros lenguajes
+- **Enfocado en practicantes ML/DS**: Documentación dirigida a científicos de datos en transición a Julia
 
-Si las features aquí (Result types, patrones DrWatson, validaciones de seguridad) beneficiarían a PkgTemplates o BestieTemplate, el mantenedor está feliz de extraerlas y contribuirlas upstream.
+Si las features aquí (Result types para pipelines, integración workflow DrWatson, patrones de tolerance testing) beneficiarían a PkgTemplates o BestieTemplate, el mantenedor está feliz de extraerlas y contribuirlas como plugins o mejoras.
 
 ## Testing
 
