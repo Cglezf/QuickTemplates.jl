@@ -150,8 +150,9 @@ end
 @inline _get_env_value(env::Dict{String,String}, key::String)::String = get(env, key, "")
 
 # Helper: Extrae valor de sección user sin fallback hardcodeado
+# Patrón @something: reduce condicionales anidados
 @inline _get_user_value(user::Dict, section::String, key::String)::String =
-    haskey(user, section) && haskey(user[section], key) ? user[section][key] : ""
+    @something(get(get(user, section, Dict()), key, nothing), "")
 
 function _build_metadata(defaults::Dict, user::Dict, env::Dict{String,String})::ProjectMetadata
     return ProjectMetadata(
@@ -168,9 +169,9 @@ function _build_metadata(defaults::Dict, user::Dict, env::Dict{String,String})::
 end
 
 # Helper DRY: Merge user override con defaults para una sección específica
-@inline function _get_config_value(defaults_section::Dict, user_section::Dict, key::String)
-    haskey(user_section, key) ? user_section[key] : defaults_section[key]
-end
+# Patrón @something: reduce ternario manual
+@inline _get_config_value(defaults_section::Dict, user_section::Dict, key::String) =
+    @something(get(user_section, key, nothing), defaults_section[key])
 
 function _build_ci_config(defaults::Dict, user::Dict)::CIConfig
     ci_defaults = get(defaults, "ci", Dict())

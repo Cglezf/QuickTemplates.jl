@@ -1,7 +1,9 @@
 module Result
 
 export Result, Ok, Err, @unwrap, isok, iserr
-export unwrap_or, map_err, and_then_err, transpose_results, collect_oks, collect_errs
+export unwrap, expect, unwrap_or, unwrap_or_else
+export map_err, and_then, and_then_err, or_else
+export transpose_results, collect_oks, collect_errs
 
 """
 Railway-oriented programming para Julia.
@@ -83,6 +85,49 @@ macro unwrap(expr)
 end
 
 """
+    unwrap(r::Result)
+
+Desenvuelve Result lanzando error si es Err (estilo Rust panic).
+
+**CUIDADO**: Solo usar cuando estés 100% seguro que es Ok.
+Preferir `@unwrap`, `unwrap_or`, o `expect` en su lugar.
+
+# Ejemplo
+
+```julia
+value = unwrap(Ok(42))  # 42
+unwrap(Err("failed"))   # ERROR: ResultError("failed")
+```
+"""
+function unwrap(r::Ok)
+    return r.value
+end
+
+function unwrap(r::Err)
+    error("ResultError: attempted to unwrap Err($(r.error))")
+end
+
+"""
+    expect(msg::String, r::Result)
+
+Desenvuelve Result o lanza error con mensaje personalizado si es Err.
+
+# Ejemplo
+
+```julia
+value = expect("Config must exist", load_config())
+# Si falla: ERROR: Config must exist: original error message
+```
+"""
+function expect(::String, r::Ok)
+    return r.value
+end
+
+function expect(msg::String, r::Err)
+    error("$msg: $(r.error)")
+end
+
+"""
     unwrap_or(default, r::Result)
 
 Desenvuelve Result o retorna default si Err.
@@ -96,6 +141,21 @@ name = unwrap_or("Unknown", fetch_name())
 """
 unwrap_or(default, r::Ok) = r.value
 unwrap_or(default, ::Err) = default
+
+"""
+    unwrap_or_else(f::Function, r::Result)
+
+Desenvuelve Result o ejecuta función f sobre el error si es Err.
+
+# Ejemplo
+
+```julia
+value = unwrap_or_else(e -> length(e), parse_int(str))
+# Si falla con Err("bad"), retorna 3 (length("bad"))
+```
+"""
+unwrap_or_else(::Function, r::Ok) = r.value
+unwrap_or_else(f::Function, r::Err) = f(r.error)
 
 # === Functor map ===
 

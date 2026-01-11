@@ -192,10 +192,35 @@ using QuickTemplates.Result
     end
 
     @testset "Result Module - Railway Helpers" begin
+        @testset "unwrap (panic style)" begin
+            @test unwrap(Ok(42)) == 42
+            @test_throws ErrorException unwrap(Err("failed"))
+        end
+
+        @testset "expect (panic with message)" begin
+            @test expect("Should work", Ok(42)) == 42
+
+            err = Err("network timeout")
+            try
+                expect("Config must exist", err)
+                @test false  # Should not reach here
+            catch e
+                @test e isa ErrorException
+                @test occursin("Config must exist", e.msg)
+                @test occursin("network timeout", e.msg)
+            end
+        end
+
         @testset "unwrap_or" begin
             @test unwrap_or(0, Ok(42)) == 42
             @test unwrap_or(0, Err("fail")) == 0
             @test unwrap_or("default", Err("error")) == "default"
+        end
+
+        @testset "unwrap_or_else" begin
+            @test unwrap_or_else(e -> length(e), Ok(42)) == 42
+            @test unwrap_or_else(e -> length(e), Err("bad")) == 3
+            @test unwrap_or_else(e -> "Fallback: $e", Err("error")) == "Fallback: error"
         end
 
         @testset "map_err" begin
@@ -204,6 +229,19 @@ using QuickTemplates.Result
 
             @test map_err(e -> "Error: $e", ok_result) == ok_result
             @test map_err(e -> "Error: $e", err_result) == Err("Error: failed")
+        end
+
+        @testset "and_then and or_else" begin
+            ok_result = Ok(42)
+            err_result = Err("failed")
+
+            # and_then (monad bind)
+            @test and_then(x -> Ok(x * 2), ok_result) == Ok(84)
+            @test and_then(x -> Ok(x * 2), err_result) == err_result
+
+            # or_else (alternative)
+            @test or_else(e -> Ok(0), ok_result) == ok_result
+            @test or_else(e -> Ok(0), err_result) == Ok(0)
         end
 
         @testset "and_then_err" begin
