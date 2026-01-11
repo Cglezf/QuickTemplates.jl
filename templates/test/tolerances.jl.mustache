@@ -1,0 +1,22 @@
+"""
+Tolerances centralizadas para tests numéricos.
+
+# Uso
+```julia
+@test isapprox(a, b, rtol=DEFAULT_RTOL)
+@test isapprox(ml_output, expected, rtol=ML_RTOL, atol=ML_ATOL)
+```
+"""
+module TestTolerances
+
+# General numeric tests
+const DEFAULT_RTOL = {{testing_rtol}}  # √eps(Float64) ≈ 1.5e-8
+const DEFAULT_ATOL = {{testing_atol}}
+
+# Machine learning / optimization tests (más relajado)
+const ML_RTOL = {{testing_ml_rtol}}
+const ML_ATOL = {{testing_ml_atol}}
+
+export DEFAULT_RTOL, DEFAULT_ATOL, ML_RTOL, ML_ATOL
+
+end # module

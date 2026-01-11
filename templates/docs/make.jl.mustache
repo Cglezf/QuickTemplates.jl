@@ -1,0 +1,22 @@
+using {{project_name}}
+using Documenter
+
+makedocs(;
+    modules=[{{project_name}}],
+    authors="{{author_fullname}} <{{github_email}}>",
+    sitename="{{project_name}}.jl",
+    format=Documenter.HTML(;
+        canonical="https://{{github_user}}.github.io/{{project_name}}.jl",
+        edit_link="{{default_branch}}",
+        assets=String[],
+    ),
+    pages=[
+        "Home" => "index.md",
+    ],
+)
+
+deploydocs(;
+    repo="github.com/{{github_user}}/{{project_name}}.jl",
+    devbranch="{{default_branch}}",
+    push_preview=true,
+)

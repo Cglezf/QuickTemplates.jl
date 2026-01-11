@@ -1,0 +1,81 @@
+module Result
+
+export Result, Ok, Err, @unwrap, isok, iserr
+
+"""
+Railway-oriented programming para Julia.
+
+# Ejemplos
+```julia
+# Crear resultados
+ok_val = Ok(42)
+err_val = Err("error message")
+
+# Pattern matching
+result = do_something()
+if isok(result)
+    println("Success: ", result.value)
+else
+    println("Error: ", result.error)
+end
+
+# Railway chaining con @unwrap
+function process()
+    val = @unwrap validate_input()
+    result = @unwrap transform(val)
+    Ok(result)
+end
+```
+"""
+abstract type Result{T,E} end
+
+struct Ok{T} <: Result{T,Nothing}
+    value::T
+end
+
+struct Err{E} <: Result{Nothing,E}
+    error::E
+end
+
+# Predicados
+isok(::Ok) = true
+isok(::Err) = false
+
+iserr(::Ok) = false
+iserr(::Err) = true
+
+"""
+    @unwrap(expr)
+
+Railway macro: early return si Err, desenvuelve Ok.
+
+# Ejemplo
+```julia
+function process()
+    val = @unwrap validate()  # Si Err, return; si Ok, val = result.value
+    transformed = @unwrap transform(val)
+    Ok(transformed)
+end
+```
+"""
+macro unwrap(expr)
+    quote
+        result = $(esc(expr))
+        iserr(result) && return result
+        result.value
+    end
+end
+
+# Functor map
+Base.map(f::Function, r::Ok) = Ok(f(r.value))
+Base.map(::Function, e::Err) = e
+
+# Monad bind (and_then)
+and_then(f::Function, r::Ok) = f(r.value)
+and_then(::Function, e::Err) = e
+
+# Alternative (or_else)
+or_else(::Function, r::Ok) = r
+or_else(f::Function, e::Err) = f(e.error)
+
+end # module

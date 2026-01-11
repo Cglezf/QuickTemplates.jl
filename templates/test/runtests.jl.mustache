@@ -1,0 +1,23 @@
+using {{project_name}}
+using Test
+
+{{#features.tests}}
+# Test utilities
+include("tolerances.jl")
+using .TestTolerances
+
+# Aqua.jl quality tests
+include("aqua_tests.jl")
+{{/features.tests}}
+
+@testset "{{project_name}}.jl" begin
+    @testset "Unit tests" begin
+        {{#features.tests}}
+        # Ejemplo con tolerances
+        @test isapprox(1.0, 1.0 + 1e-9, rtol=DEFAULT_RTOL)
+        {{/features.tests}}
+
+        # TODO: Agregar tests
+        @test true
+    end
+end

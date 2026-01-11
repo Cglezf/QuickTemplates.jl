@@ -1,0 +1,12 @@
+[deps]
+{{project_name}} = "{{uuid}}"
+# Development tools
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+TestEnv = "1e6cf692-eddd-4d53-88a5-2d735e33781b"
+OhMyREPL = "5fb14364-9ced-5910-84b2-373655c76a03"
+{{#features.tests}}
+# Testing tools (if tests enabled)
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+LocalCoverage = "1ccead58-21cf-4840-8462-00dc76dd21ed"
+{{/features.tests}}

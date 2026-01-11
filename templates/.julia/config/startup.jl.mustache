@@ -1,0 +1,29 @@
+# Auto-generado por JuliaTemplates.jl
+# Dev workspace: Revise + OhMyREPL + TestEnv
+# Proyecto: {{project_name}}
+
+# Revise.jl - Hot code reloading
+try
+    using Revise
+catch e
+    @warn "Revise no disponible. Instalar: using Pkg; Pkg.add(\"Revise\")"
+end
+
+# OhMyREPL.jl - REPL mejorado (syntax highlighting, historial, etc)
+try
+    using OhMyREPL
+catch
+    # Silencioso si no está disponible
+end
+
+# TestEnv.jl - Activar entorno test fácilmente
+try
+    using TestEnv
+catch
+    # Silencioso si no está disponible
+end
+
+println("✨ Dev workspace cargado ({{project_name}})")
+println("   Revise: Hot reload automático")
+println("   TestEnv: Usa TestEnv.activate() para test/")
+println("   OhMyREPL: Syntax highlighting en REPL")

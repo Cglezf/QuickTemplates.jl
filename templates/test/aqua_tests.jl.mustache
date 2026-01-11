@@ -1,0 +1,15 @@
+"""
+Aqua.jl - Automatic Quality Assurance
+
+Tests automáticos de calidad de código:
+- Ambiguities
+- Unbound args
+- Undefined exports
+- Project structure
+- Dependencies
+"""
+using Aqua
+
+@testset "Code quality (Aqua.jl)" begin
+    Aqua.test_all({{project_name}})
+end

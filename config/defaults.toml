@@ -1,0 +1,97 @@
+# defaults.toml - Configuración completa con defaults
+# ZERO_FALLBACKS: Toda configuración tiene un valor por defecto
+# Filosofía: Stdlib-first, minimal deps, composable
+
+[project]
+license = "MIT"
+julia_version = "1.12"
+min_julia_version = "1.12"  # Versión mínima soportada de Julia
+initial_version = "0.1.0"   # Versión inicial del proyecto generado
+default_branch = "main"     # Branch principal (main/master)
+
+[features]
+# Core Julia workflows
+tests = true
+docs = true
+ci = true              # ← Incluye CI.yml + TagBot + Dependabot por defecto
+formatter = true       # ← JuliaFormatter.jl (community standard)
+
+# CI Integration (override individual components)
+tagbot = true          # ← Override a false para desactivar (requiere ci=true)
+dependabot = true      # ← Override a false para desactivar (requiere ci=true)
+
+# Developer Mode
+dev_mode = false       # ← Activa dev/ workspace con todas las herramientas
+
+# Scientific Computing
+drwatson = false       # ← DrWatson.jl: scripts/, data/, plots/, notebooks/, papers/
+notebooks = false      # ← Jupyter notebooks: notebooks/, .vscode/settings.json
+
+# Optional Features
+logging = false        # ← stdlib Logging, zero deps
+result_types = false   # ← Railway-oriented programming (Ok/Err types)
+
+# === FORMATTER (JuliaFormatter.jl) ===
+
+[formatter]
+style = "blue"         # blue, sciml, yas, minimal
+indent = 4
+margin = 92
+always_for_in = true
+whitespace_typedefs = true
+whitespace_ops_in_indices = true
+import_to_using = false
+pipe_to_function_call = false
+short_to_long_function_def = false
+always_use_return = false
+conditional_to_if = false
+normalize_line_endings = "unix"
+format_docstrings = true
+align_struct_field = false
+align_conditional = false
+align_assignment = false
+align_pair_arrow = false
+
+# === LOGGING (stdlib composable) ===
+
+[logging]
+# Usa Logging stdlib + OncePerProcess (Julia 1.12+)
+# Zero deps externas, composable vía dispatch
+min_level = "Info"     # Debug, Info, Warn, Error
+# ENV variable: JULIA_LOG_LEVEL override
+
+# === TESTING (obligatorio si tests=true) ===
+
+[testing]
+use_aqua = true        # Aqua QA siempre
+rtol = 1.5e-8          # √eps(Float64)
+atol = 0.0
+ml_rtol = 1e-5
+ml_atol = 1e-8
+
+# === CI ===
+
+[ci]
+# SINGLE SOURCE: Estas versiones se usan en:
+# - Matrix de tests (todas las versiones)
+# - Job de docs (docs_julia_version)
+# - Badges en README (primera versión)
+julia_versions = ["1.12", "pre"]  # Orden: LTS, stable, pre-release
+os = ["ubuntu-latest", "macos-latest", "windows-latest"]
+codecov = true
+docs_julia_version = "1.12"  # Versión para generar docs (DRY: define una vez)
+
+# === GITHUB (sin cambios) ===
+
+[github]
+create_repo = false
+private = true
+auto_push = false
+
+# === DEV WORKSPACE (NUEVO - zero config) ===
+
+[dev]
+# Paquetes instalados globalmente para desarrollo
+# Script auto-genera ~/.julia/config/startup.jl
+packages = ["Revise", "OhMyREPL", "TestEnv"]
+auto_setup = true      # Setup automático en generate()

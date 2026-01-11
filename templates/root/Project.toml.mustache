@@ -1,0 +1,17 @@
+name = "{{project_name}}"
+uuid = "{{uuid}}"
+authors = ["{{author_fullname}} <{{github_email}}>"]
+version = "{{initial_version}}"
+
+[deps]
+{{#features.drwatson}}
+# DrWatson mode: Scientific computing environment
+DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+{{/features.drwatson}}
+
+[compat]
+julia = "{{julia_version}}"

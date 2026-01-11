@@ -1,0 +1,5 @@
+[deps]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+QuickTemplates = "e0a1e0cf-adbd-4af0-bae4-f392a3de8ba5"
+LocalCoverage = "5f6e1e16-694c-5876-87ef-16b5274f298e"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

@@ -1,0 +1,28 @@
+# config.toml.template - Template de configuración por proyecto
+# Copiar a tu directorio de trabajo y editar
+
+[project]
+name = ""                           # Nombre del paquete (OBLIGATORIO)
+
+[features]
+# Core Julia workflows
+tests = true                        # Aqua QA + tolerances + LocalCoverage
+docs = true                         # Documenter.jl + GitHub Pages
+ci = true                           # GitHub Actions + TagBot + Dependabot
+formatter = true                    # JuliaFormatter.jl (estilo Blue)
+
+# Developer Mode
+dev_mode = false                    # Activa dev/ workspace con todas las herramientas
+
+# Scientific Computing
+drwatson = false                    # DrWatson.jl: scripts/, data/, plots/, notebooks/, papers/
+notebooks = false                   # Jupyter notebooks: notebooks/, .vscode/settings.json
+
+# Optional Features
+logging = false                     # stdlib Logging, zero deps
+result_types = false                # Railway-oriented programming (Ok/Err types)
+
+[github]
+create_repo = false                 # Crear repo GitHub automáticamente
+private = true                      # Repo privado (si create_repo=true)
+auto_push = false                   # Push automático (requiere SSH)

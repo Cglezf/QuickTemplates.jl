@@ -1,0 +1,25 @@
+module {{project_name}}
+
+{{#features.logging}}
+# Logging setup
+include("logging.jl")
+{{/features.logging}}
+
+{{#features.result_types}}
+# Railway-oriented programming
+include("Result.jl")
+using .Result
+export Result, Ok, Err, @unwrap, isok, iserr
+{{/features.result_types}}
+
+"""
+    {{project_name}}
+
+TODO: Agregar descripción del paquete
+"""
+{{project_name}}
+
+# Exportar funciones públicas aquí
+# export mi_funcion
+
+end # module

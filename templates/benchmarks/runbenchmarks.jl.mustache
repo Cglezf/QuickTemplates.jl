@@ -1,0 +1,24 @@
+using BenchmarkTools
+using {{project_name}}
+
+# Suite de benchmarks
+const SUITE = BenchmarkGroup()
+
+# Ejemplo: agregar benchmarks aquí
+# SUITE["example"] = @benchmarkable sin(0.5)
+# SUITE["my_function"] = @benchmarkable my_function(args...)
+
+# Ejecutar suite
+println("🔥 Ejecutando benchmarks para {{project_name}}...")
+println()
+
+if isempty(SUITE)
+    println("⚠️  No hay benchmarks definidos todavía")
+    println("   Agregar benchmarks en benchmarks/runbenchmarks.jl:")
+    println("   SUITE[\"nombre\"] = @benchmarkable funcion(args...)")
+else
+    results = run(SUITE, verbose=true)
+    println()
+    println("📊 Resultados:")
+    display(results)
+end

@@ -1,0 +1,37 @@
+"""
+Logger configurado con stdlib Logging + OncePerProcess (Julia 1.12+).
+
+# Uso
+```julia
+using {{project_name}}
+
+@info "Mensaje informativo"
+@warn "Mensaje de advertencia"
+@error "Mensaje de error"
+```
+
+# Configuración
+Override via ENV: `ENV["JULIA_LOG_LEVEL"] = "Debug"`
+Valores válidos: Debug, Info, Warn, Error
+"""
+using Logging
+
+# Log levels lookup (idiomático Julia 1.12+)
+const LOG_LEVELS = Dict{String,LogLevel}(
+    "Debug" => Logging.Debug,
+    "Info"  => Logging.Info,
+    "Warn"  => Logging.Warn,
+    "Error" => Logging.Error
+)
+
+# OncePerProcess: inicialización lazy thread-safe (Julia 1.12+)
+const LOGGER = Base.OncePerProcess() do
+    level_str = get(ENV, "JULIA_LOG_LEVEL", "{{logging_min_level}}")
+    level = get(LOG_LEVELS, level_str, Logging.Info)  # Default Info si inválido
+    ConsoleLogger(stderr, level)
+end
+
+# Setup automático al cargar módulo
+function __init__()
+    global_logger(LOGGER[])
+end
